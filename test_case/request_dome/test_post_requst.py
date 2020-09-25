@@ -72,7 +72,7 @@ def test_post_charge():
     headers ={"Content-Type": "application/json","token": "eyJ0aW1lT3V0IjoxNjAxMDI0OTE5NTk3LCJ1c2VySWQiOjE2MDk5LCJ1c2VyTmFtZSI6IndzeDY2NjYifQ=="}
     data ={
               "accountName": "wuxian9415",
-              "changeMoney": 10
+              "changeMoney": 100
             }
     r = requests.request("POST",url=url,json=data,headers=headers)
     print(r.text)
@@ -84,3 +84,15 @@ def test_post_seluser():
     r =requests.request("POST",url=url,headers=headers)
     print(r.text)
     assert "查询成功" in r.text
+
+def test_post_withdraw():
+    url ='http://qa.yansl.com:8084/acc/withdraw'
+    headers ={"Content-Type": "application/json","token": "eyJ0aW1lT3V0IjoxNjAxMDI0OTE5NTk3LCJ1c2VySWQiOjE2MDk5LCJ1c2VyTmFtZSI6IndzeDY2NjYifQ=="}
+    data = {
+          "accountName": "wuxian9415",
+          "cardNo": "330104016000085200",
+          "changeMoney": 20
+        }
+    r =requests.request("POST",url=url,json=data,headers=headers)
+    print(r.text)
+    assert "提现成功"  in r.text
