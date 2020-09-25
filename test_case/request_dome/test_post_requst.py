@@ -56,4 +56,31 @@ def test_user_login():
 #     print(r.text)
 
 
+def test_post_change():
+    url = 'http://qa.yansl.com:8084/acc/changeBalance/{accountId}'.format(accountId=17906)
+    headers = {"Content-Type": "application/json","token": "eyJ0aW1lT3V0IjoxNjAxMDI0OTE5NTk3LCJ1c2VySWQiOjE2MDk5LCJ1c2VyTmFtZSI6IndzeDY2NjYifQ=="}
+    data ={
+         "balance": 1000
+        }
+    r = requests.request("POST",url=url,json=data,headers=headers)
+    print(r.text)
+    assert "修改成功" in r.text
 
+
+def test_post_charge():
+    url ='http://qa.yansl.com:8084/acc/charge'
+    headers ={"Content-Type": "application/json","token": "eyJ0aW1lT3V0IjoxNjAxMDI0OTE5NTk3LCJ1c2VySWQiOjE2MDk5LCJ1c2VyTmFtZSI6IndzeDY2NjYifQ=="}
+    data ={
+              "accountName": "wuxian9415",
+              "changeMoney": 10
+            }
+    r = requests.request("POST",url=url,json=data,headers=headers)
+    print(r.text)
+    assert "扣款成功" in r.text
+
+def test_post_seluser():
+    url ='http://qa.yansl.com:8084/acc/selAllAccs/{pageNum}/{pageSize}'.format(pageNum=1,pageSize=10)
+    headers ={"token": "eyJ0aW1lT3V0IjoxNjAxMDI0OTE5NTk3LCJ1c2VySWQiOjE2MDk5LCJ1c2VyTmFtZSI6IndzeDY2NjYifQ=="}
+    r =requests.request("POST",url=url,headers=headers)
+    print(r.text)
+    assert "查询成功" in r.text
